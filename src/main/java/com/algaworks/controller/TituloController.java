@@ -17,15 +17,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.model.StatusTitulo;
 import com.algaworks.model.Titulo;
-import com.algaworks.repository.Titulos;
+import com.algaworks.repository.filter.TituloFilter;
 import com.algaworks.service.TituloService;
 
 @Controller
 @RequestMapping("/titulos")
 public class TituloController {
 
-	@Autowired
-	private Titulos titulos;
 	
 	@Autowired
 	private TituloService tituloService;
@@ -62,24 +60,26 @@ public class TituloController {
 	public List<StatusTitulo> todosStatusTitulo() {
 		return Arrays.asList(StatusTitulo.values());
 	}
-
+	
+	//Pesquisa automaticamente com Spring Data um objeto Titulo pela
+	//variavel codigo e adiciona esse objeto ao atributo titulo
 	@RequestMapping(value = "{codigo}")
-	public ModelAndView edicao(@PathVariable Long codigo) {
-
-		Titulo titulo = titulos.findOne(codigo);
+	public ModelAndView edicao(@PathVariable("codigo") Titulo titulo) {
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
 		mv.addObject(titulo);
 		return mv;
 	}
 
 	@RequestMapping
-	public ModelAndView pesquisar() {
-		List<Titulo> lista = titulos.findAll();
+	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) {
+		
+		List<Titulo> lista = tituloService.filtrar(filtro);
+		
 		ModelAndView mv = new ModelAndView("PesquisaTitulo");
 		mv.addObject("todos", lista);
 		return mv;
 	}
-
+	
 	@RequestMapping(value = "{codigo}", method = RequestMethod.DELETE)
 	public String exlcuir(@PathVariable Long codigo,
 			RedirectAttributes atributos) {

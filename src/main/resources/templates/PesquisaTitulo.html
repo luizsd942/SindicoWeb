@@ -22,6 +22,22 @@
 		</div>
 
 		<div class="panel-body">
+		
+			<form action="/titulos" method="GET" class="form-horizontal" th:object="${filtro}">
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="input-group">
+							<input class="form-control" placeholder="Pesquise um título" 
+							autofocus="autofocus" th:field="*{descricao}"/>
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-info">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</form>
 
 			<table class="table table-bordered table-striped">
 				<thead>
