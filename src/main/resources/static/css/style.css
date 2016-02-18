@@ -1,10 +1,17 @@
-.navbar-brand {
-	padding-top: 12px;
+/*TELA GRANDE*/
+@media ( min-width : 768px) {
+	.alert {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.form-horizontal {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
 }
 
-.form-horizontal {
-	padding-left: 10px;
-	padding-right: 10px;
+.navbar-brand {
+	padding-top: 12px;
 }
 
 .sistema-pn-link {
